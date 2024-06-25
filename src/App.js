@@ -1,20 +1,32 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-import Login from './components/Login'; // Assuming you have a Login component
-import PrivateRoute from './components/PrivateRoute'; // Implement private route logic if needed
-
+import { BrowserRouter, Routes,Route} from 'react-router-dom';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import './App.css';
+import ProtectedRoutes from './utils/ProtectedRoutes';
+import { AuthProvider } from './contexts/AuthContext';
+import Layout from './components/Layout';
+import Users from './pages/Users';
+import CreateUser from './pages/CreateUser';
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <PrivateRoute path="/dashboard/*" element={<Dashboard />} />
-        {/* Add more routes as needed */}
-      </Routes>
-    </Router>
-  );
+    <BrowserRouter>
+        <Routes>
+          <Route element={<Login/>} path="/login"/>
+
+          <Route element={<ProtectedRoutes/> }>
+            <Route element={<Layout/>}>
+              <Route element={<Dashboard/>} path="/dashboard"/>
+              <Route element={<Users/>} path="/dashboard/users"/>
+              <Route element={<CreateUser/>} path="/dashboard/users/create"/>
+            </Route>
+          </Route>
+          
+        </Routes>
+      
+    </BrowserRouter>
+  )
 };
 
 export default App;
+
