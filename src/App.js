@@ -4,10 +4,10 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import './App.css';
 import ProtectedRoutes from './utils/ProtectedRoutes';
-import { AuthProvider } from './contexts/AuthContext';
 import Layout from './components/Layout';
 import Users from './pages/Users';
 import CreateUser from './pages/CreateUser';
+import CreateProject from './pages/CreateProject';
 const App = () => {
   return (
     <BrowserRouter>
@@ -18,6 +18,7 @@ const App = () => {
               <Route element={<Dashboard/>} path="/"/>
               <Route element={<Users/>} path="/users"/>
               <Route element={<CreateUser/>} path="/users/create"/>
+              <Route element={<CreateProject/>} path="/projects/create"/>
             </Route>
           </Route>
           
