@@ -13,7 +13,7 @@ const Login = () => {
         event.preventDefault();
         const success = await login(email, password);
         if (success) {
-            navigate('/dashboard');
+            navigate('/');
         } else {
             alert('Login failed. Please check your credentials.');
         }

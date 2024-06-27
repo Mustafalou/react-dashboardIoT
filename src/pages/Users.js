@@ -38,7 +38,7 @@ const Users = () => {
       <Button
         variant="contained"
         component={Link}
-        to="/dashboard/users/create"
+        to="/users/create"
         sx={{ marginBottom: 2 }}
       >
         Create User

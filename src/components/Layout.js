@@ -47,7 +47,7 @@ export default function ClippedDrawer() {
         <Box sx={{ overflow: 'auto' }}>
           <List>
               <ListItem key="users" disablePadding>
-                <ListItemButton component={Link} to="/dashboard/users">
+                <ListItemButton component={Link} to="/users">
                   <ListItemIcon>
                     <PersonIcon />
                   </ListItemIcon>
