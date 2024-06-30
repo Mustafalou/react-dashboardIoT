@@ -6,17 +6,6 @@ const AuthContext = createContext();
 // Provide AuthContext to components
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    useEffect(()=>{
-        const fetchUser = async ()=>{
-            try {
-                const response = await axios.get("/auth/me")
-                setUser(response.data)
-            }catch(error){
-                console.error("Error fetching user:", error)
-            }
-        }
-        fetchUser()
-    }, [])
     // Mock login function
     const login = async (email, password) => {
         try{
