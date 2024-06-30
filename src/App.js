@@ -8,6 +8,7 @@ import Layout from './components/Layout';
 import Users from './pages/Users';
 import CreateUser from './pages/CreateUser';
 import CreateProject from './pages/CreateProject';
+import Project from './pages/Project';
 const App = () => {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ const App = () => {
               <Route element={<Users/>} path="/users"/>
               <Route element={<CreateUser/>} path="/users/create"/>
               <Route element={<CreateProject/>} path="/projects/create"/>
+              <Route element={<Project/>} path="/projects/:id"/>
             </Route>
           </Route>
           
