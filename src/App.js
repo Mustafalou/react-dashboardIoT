@@ -9,11 +9,14 @@ import Users from './pages/Users';
 import CreateUser from './pages/CreateUser';
 import CreateProject from './pages/CreateProject';
 import Project from './pages/Project';
+import { AuthProvider } from './contexts/AuthContext';
+import LoginRoute from './utils/LoginRoute';
 const App = () => {
   return (
     <BrowserRouter>
+      <AuthProvider>
         <Routes>
-          <Route element={<Login/>} path="/login"/>
+          <Route element={<LoginRoute><Login/></LoginRoute>} path="/login"/>
           <Route element={<ProtectedRoutes/> }>
             <Route element={<Layout/>}>
               <Route element={<Dashboard/>} path="/"/>
@@ -25,7 +28,7 @@ const App = () => {
           </Route>
           
         </Routes>
-      
+      </AuthProvider>
     </BrowserRouter>
   )
 };

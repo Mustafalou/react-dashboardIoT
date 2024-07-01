@@ -6,24 +6,39 @@ const AuthContext = createContext();
 // Provide AuthContext to components
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true); // Add loading state
+    // Function to verify user session
+    const verifySession = async () => {
+        try {
+            const response = await axios.get('/auth/me', { withCredentials: true });
+            setUser(response.data); // Set user data on successful verification
+        } catch (error) {
+            console.error('Error verifying user session:', error);
+            setUser(null); // Ensure user is set to null if session is not valid
+        } finally {
+            setLoading(false); // End loading
+        }
+    };
+    useEffect(() => {
+        verifySession();
+    }, []);
     // Mock login function
     const login = async (email, password) => {
+        console.log(user);
         try{
-            const response= await axios.post("/auth/login", {email,password})
-            localStorage.setItem('accesToken',response.data.token)
+            const response= await axios.post("/auth/login", {email,password}, {withCredentials:true})
             setUser(response.data);
             return true
         }catch(error){
             console.error("Error logging in:", error)
             return false
         }
-        
     };
 
     // Mock logout function
     const logout = async () => {
         try{
-            await axios.post("/auth/logout",{})
+            await axios.post("/auth/logout",{},{withCredentials:true})
             setUser(null)
         }catch(error){
             console.error('Error logging out:', error)
@@ -31,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );
