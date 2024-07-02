@@ -17,6 +17,7 @@ import MailIcon from '@mui/icons-material/Person';
 import { Button } from '@mui/material';
 import {Link, Outlet} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { RxActivityLog } from "react-icons/rx";
 const drawerWidth = 240;
 
 export default function ClippedDrawer() {
@@ -57,16 +58,14 @@ export default function ClippedDrawer() {
           </List>
           <Divider />
           <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
+          <ListItem key="logs" disablePadding>
+                <ListItemButton component={Link} to="/logs">
                   <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    <RxActivityLog />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary="logs" />
                 </ListItemButton>
               </ListItem>
-            ))}
           </List>
         </Box>
       </Drawer>

@@ -11,6 +11,7 @@ import CreateProject from './pages/CreateProject';
 import Project from './pages/Project';
 import { AuthProvider } from './contexts/AuthContext';
 import LoginRoute from './utils/LoginRoute';
+import Logs from './pages/Logs';
 const App = () => {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ const App = () => {
               <Route element={<CreateUser/>} path="/users/create"/>
               <Route element={<CreateProject/>} path="/projects/create"/>
               <Route element={<Project/>} path="/projects/:id"/>
+              <Route element={<Logs/>} path="/logs"/>
             </Route>
           </Route>
           
