@@ -21,7 +21,7 @@ const Users = () => {
   }, []);
   const handleDeleteUser = async(userId)=>{
     try{
-        await axios.delete(`/users/${userId}`); // Adjust endpoint based on your backend API
+        await axios.delete(`/users/${userId}`, {withCredentials:true}); // Adjust endpoint based on your backend API
       // Filter out the deleted user from the local state
       setUsers(users.filter(user => user.id !== userId));
       console.log('User deleted successfully');
