@@ -10,7 +10,7 @@ const Dashboard = () => {
     // Fetch projects from backend when component mounts
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('/projects');
+        const response = await axios.get('/projects', {withCredentials: true});
         console.log(response)
         setProjects(response.data);
       } catch (error) {

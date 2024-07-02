@@ -23,7 +23,7 @@ const CreateProject = () => {
     }),
     onSubmit: async (values) => {
       try {
-        await axios.post('/projects', values);
+        await axios.post('/projects', values, {withCredentials: true});
         navigate('/');
       } catch (error) {
         console.error('Error creating project:', error);

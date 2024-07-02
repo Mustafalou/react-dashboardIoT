@@ -11,7 +11,7 @@ const Users = () => {
 
   useEffect(() => {
     // Fetch users from API
-    axios.get('/users')
+    axios.get('/users', {withCredentials: true})
       .then(response => {
         setUsers(response.data);
       })

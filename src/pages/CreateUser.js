@@ -24,7 +24,7 @@ const CreateUser = () => {
       isAdmin: Yup.boolean(),
     }),
     onSubmit: values => {
-        axios.post('/users/create', values)
+        axios.post('/users/create', values, {withCredentials: true})
         .then(response => {
           console.log('User created successfully:', response.data);
           return <Navigate to="/dashboard/users"/>
