@@ -1,61 +1,66 @@
+// ChartComponent.js
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import { Chart, Ticks, registerables } from 'chart.js';
+import { format } from 'date-fns';
+import 'chartjs-adapter-date-fns';
+Chart.register(...registerables);
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+const ChartComponent = ({ data }) => {
+  if (data.length === 0) {
+    return <div>No data available</div>;
+  }
+  const firstTimestamp = data.length > 0 ? data[0].timestamp : new Date().toISOString();
+  const lastTimestamp = data.length > 0 ? data[data.length - 1].timestamp : new Date().toISOString();
 
-const ChartComponent = () => {
-  const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  const chartData = {
     datasets: [
       {
-        label: '# of Votes',
-        data: Array.from({ length: 6 }, () => Math.floor(Math.random() * 100)),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 1,
+        label: 'MQTT Data',
+        data: data.map((d) => ({
+          x:new Date(d.timestamp),
+          y: d.message,
+        })), // Ensure this is a numeric array
+        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: 'rgba(75,192,192,0.2)',
+        fill: false,
       },
     ],
   };
 
   const options = {
+    responsive: true,
     scales: {
+      x: {
+        type: 'time', // Use time scale for x-axis,
+        time: {
+          unit: 'minute', // Display time in minutes
+          displayFormats: {
+            minute: 'HH:mm', // Display time in hours and minutes
+          },
+        },
+        Ticks: {
+          source: 'auto',
+          autoSkip: true,
+        },
+        title: {
+          display: true,
+          text: 'Time',
+        },
+      },
       y: {
-        beginAtZero: true,
+        display: true,
+        title: {
+          display: true,
+          text: 'Value',
+        },
+        min: 0, // Set the minimum y-axis value
+        max: 100, // Set the maximum y-axis value
       },
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return <Line data={chartData} options={options} />;
 };
 
 export default ChartComponent;

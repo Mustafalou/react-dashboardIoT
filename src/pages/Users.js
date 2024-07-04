@@ -8,7 +8,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-
   useEffect(() => {
     // Fetch users from API
     axios.get('/users', {withCredentials: true})
