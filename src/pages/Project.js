@@ -7,7 +7,7 @@ const Project = () => {
   const [messages, setMessages] = React.useState([]);
   useEffect(() => {
     // Initialize the MQTT client
-    const mqttClient = mqtt.connect('ws://192.168.1.2:9001',{
+    const mqttClient = mqtt.connect('wss://api.technivor.net/ws',{
       username: 'technivor',
       password: 'bdzaa$'
     });

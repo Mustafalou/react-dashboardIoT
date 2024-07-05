@@ -1,8 +1,7 @@
 // ChartComponent.js
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { Chart, Ticks, registerables } from 'chart.js';
-import { format } from 'date-fns';
+import { Chart, registerables } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 Chart.register(...registerables);
 
