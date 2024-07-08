@@ -2,10 +2,17 @@
 import React, { useEffect } from 'react';
 import ChartComponent from '../components/ChartComponent';
 import mqtt from 'mqtt';
-
+import axios from '../axiosConfig';
 const Project = () => {
-  const [messages, setMessages] = React.useState([]);
-  useEffect(() => {
+  const [data, setData] = React.useState([]);
+  useEffect( () => {
+    axios.get('/data/test')
+    .then((response) => {
+      setData(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
     // Initialize the MQTT client
     const mqttClient = mqtt.connect('wss://api.technivor.net/ws',{
       username: 'technivor',
@@ -25,9 +32,9 @@ const Project = () => {
     });
 
     // Handle incoming messages
-    mqttClient.on('message', (topic, message) => {
-      const timestamp = new Date().toISOString();
-      setMessages((prevMessages) => [...prevMessages, { topic, message, timestamp }]);
+    mqttClient.on('message', (topic, value) => {
+      const time = new Date().toISOString();
+      setData((prevData) => [...prevData, { topic, value, time }]);
     });
 
     // Handle errors
@@ -47,11 +54,11 @@ const Project = () => {
     };
   }, []);
   const oneHourAgo = new Date(new Date().getTime() - 60 * 60 * 1000).toISOString();
-  const filteredMessages = messages.filter(msg => msg.timestamp > oneHourAgo);
+  const filteredData = data.filter(msg => msg.time > oneHourAgo);
   return (
     <div className="App">
       <header className="App-header">
-        <ChartComponent data={filteredMessages}/>
+        <ChartComponent data={filteredData}/>
       </header>
     </div>
   );
