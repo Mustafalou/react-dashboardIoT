@@ -12,6 +12,8 @@ import Project from './pages/Project';
 import { AuthProvider } from './contexts/AuthContext';
 import LoginRoute from './utils/LoginRoute';
 import Logs from './pages/Logs';
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
 const App = () => {
   return (
     <BrowserRouter>
@@ -24,11 +26,11 @@ const App = () => {
               <Route element={<Users/>} path="/users"/>
               <Route element={<CreateUser/>} path="/users/create"/>
               <Route element={<CreateProject/>} path="/projects/create"/>
-              <Route element={<Project/>} path="/projects/:id"/>
               <Route element={<Logs/>} path="/logs"/>
             </Route>
+            
+              <Route element={<Project/>} path="/projects/:projectid/edit/:pageid"/>
           </Route>
-          
         </Routes>
       </AuthProvider>
     </BrowserRouter>

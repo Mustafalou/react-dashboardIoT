@@ -2,8 +2,16 @@
 import React, { useEffect } from 'react';
 import ChartComponent from '../components/ChartComponent';
 import mqtt from 'mqtt';
+import ItemLayout from '../components/ItemLayout';
+import "./Project.css";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const Project = () => {
+  return (
+      <ItemLayout/>
+  )
+  /*
   const [messages, setMessages] = React.useState([]);
   useEffect(() => {
     // Initialize the MQTT client
@@ -54,7 +62,7 @@ const Project = () => {
         <ChartComponent data={filteredMessages}/>
       </header>
     </div>
-  );
+  );*/
 }
 
 export default Project;

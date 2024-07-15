@@ -48,7 +48,7 @@ const Dashboard = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary" component={Link} to={`/projects/${project.id}`}>
+                <Button size="small" color="primary" component={Link} to={`/projects/${project.id}/edit/1`}>
                   View Project
                 </Button>
               </CardActions>
