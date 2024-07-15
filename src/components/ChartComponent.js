@@ -1,8 +1,7 @@
 // ChartComponent.js
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { Chart, Ticks, registerables } from 'chart.js';
-import { format } from 'date-fns';
+import { Chart, registerables } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 Chart.register(...registerables);
 
@@ -10,16 +9,13 @@ const ChartComponent = ({ data }) => {
   if (data.length === 0) {
     return <div>No data available</div>;
   }
-  const firstTimestamp = data.length > 0 ? data[0].timestamp : new Date().toISOString();
-  const lastTimestamp = data.length > 0 ? data[data.length - 1].timestamp : new Date().toISOString();
-
   const chartData = {
     datasets: [
       {
         label: 'MQTT Data',
         data: data.map((d) => ({
-          x:new Date(d.timestamp),
-          y: d.message,
+          x:new Date(d.time),
+          y: d.value,
         })), // Ensure this is a numeric array
         borderColor: 'rgba(75,192,192,1)',
         backgroundColor: 'rgba(75,192,192,0.2)',
