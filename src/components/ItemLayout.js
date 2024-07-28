@@ -5,84 +5,12 @@ import './ItemLayout.css';
 import { FaHome, FaInfoCircle, FaServicestack, FaEnvelope, FaTools } from 'react-icons/fa';
 import { useDnd } from '../contexts/DndContext';
 import { DndProvider } from '../contexts/DndContext';
-const DraggableItem = ({ id, text }) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'ITEM',
-    item: { id, text },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }));
-
-  return (
-    <div
-      ref={drag}
-      style={{
-        opacity: isDragging ? 0.5 : 1,
-        cursor: 'move',
-        padding: '8px',
-        border: '1px solid gray',
-        marginBottom: '4px',
-      }}
-    >
-      {text}
-    </div>
-  );
-};
-
-const DroppableArea = () => {
-  const {droppedItems,addDroppedItem} = useDnd();
-  console.log(droppedItems);
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: 'ITEM',
-    drop: (item, monitor) =>{
-      const offset = monitor.getClientOffset();
-      addDroppedItem(item, offset);
-
-    } ,
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
-  }));
-
-  return (
-    <div
-      ref={drop}
-      style={{
-        height: '100%',
-        width: '100%',
-        backgroundColor: 'darkgray',
-        padding: '0px',
-      }}
-    >
-{droppedItems.length === 0 && <p>Drop items here</p>}
-      {droppedItems.map((item, index) => (
-        <div 
-          key={index} 
-          style={{ 
-            padding: '8px', 
-            border: '1px solid black', 
-            margin: '4px', 
-            position: 'absolute',
-            left: item.position.x - 50, // Adjust the x and y position to center the item
-            top: item.position.y - 50   // Adjust the x and y position to center the item
-          }}
-        >
-          {item.item.text}
-        </div>
-      ))}
-    </div>
-  );
-};
+import GaugeItem from './items/GaugeItem';
+import DroppableArea from './DroppableArea';
 
 const ItemLayout = () => {
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const items = [
-    { id: 1, text: 'Item 1' },
-    { id: 2, text: 'Item 2' },
-    { id: 3, text: 'Item 3' },
-  ];
 
   const handleIconClick = (icon) => {
     setSelectedIcon(icon === selectedIcon ? null : icon); // Toggle sidebar visibility
@@ -91,11 +19,6 @@ const ItemLayout = () => {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-
-  const handleDrop = (id) => {
-    const droppedItem = items.find((item) => item.id === id);
-  };
-
   return (
     <DndProvider>
     <BackendProvider backend={HTML5Backend}>
@@ -131,9 +54,7 @@ const ItemLayout = () => {
                   onChange={handleSearchChange}
                   className="search-bar"
                 />
-                {items.map((item) => (
-                  <DraggableItem key={item.id} id={item.id} text={item.text} />
-                ))}
+                <GaugeItem id="1" text="Gauge" />
               </div>
             )}
             {selectedIcon !== 'tools' && (

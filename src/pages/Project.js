@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import ChartComponent from '../components/ChartComponent';
 import mqtt from 'mqtt';
-<<<<<<< HEAD
 import ItemLayout from '../components/ItemLayout';
 import "./Project.css";
 import { DndProvider } from 'react-dnd';
@@ -15,19 +14,6 @@ const Project = () => {
   /*
   const [messages, setMessages] = React.useState([]);
   useEffect(() => {
-=======
-import axios from '../axiosConfig';
-const Project = () => {
-  const [data, setData] = React.useState([]);
-  useEffect( () => {
-    axios.get('/data/test')
-    .then((response) => {
-      setData(response.data);
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    });
->>>>>>> 25863624ea24a3b3be1d35cfd1bcf3c25d26d980
     // Initialize the MQTT client
     const mqttClient = mqtt.connect('wss://api.technivor.net/ws',{
       username: 'technivor',
