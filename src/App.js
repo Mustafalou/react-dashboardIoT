@@ -14,24 +14,27 @@ import LoginRoute from './utils/LoginRoute';
 import Logs from './pages/Logs';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
+import { MqttProvider } from './contexts/MqttContext';
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route element={<LoginRoute><Login/></LoginRoute>} path="/login"/>
-          <Route element={<ProtectedRoutes/> }>
-            <Route element={<Layout/>}>
-              <Route element={<Dashboard/>} path="/"/>
-              <Route element={<Users/>} path="/users"/>
-              <Route element={<CreateUser/>} path="/users/create"/>
-              <Route element={<CreateProject/>} path="/projects/create"/>
-              <Route element={<Logs/>} path="/logs"/>
+        <MqttProvider>
+          <Routes>
+            <Route element={<LoginRoute><Login/></LoginRoute>} path="/login"/>
+            <Route element={<ProtectedRoutes/> }>
+              <Route element={<Layout/>}>
+                <Route element={<Dashboard/>} path="/"/>
+                <Route element={<Users/>} path="/users"/>
+                <Route element={<CreateUser/>} path="/users/create"/>
+                <Route element={<CreateProject/>} path="/projects/create"/>
+                <Route element={<Logs/>} path="/logs"/>
+              </Route>
+              
+                <Route element={<Project/>} path="/projects/:projectid/edit/:pageid"/>
             </Route>
-            
-              <Route element={<Project/>} path="/projects/:projectid/edit/:pageid"/>
-          </Route>
-        </Routes>
+          </Routes>
+        </MqttProvider>
       </AuthProvider>
     </BrowserRouter>
   )

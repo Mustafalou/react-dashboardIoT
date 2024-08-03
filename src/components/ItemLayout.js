@@ -7,13 +7,22 @@ import { useDnd } from '../contexts/DndContext';
 import { DndProvider } from '../contexts/DndContext';
 import GaugeItem from './items/GaugeItem';
 import DroppableArea from './DroppableArea';
-
+import TextItem from './items/TextItem';
+import NavigateItem from './items/NavigateItem';
+import { useNavigate, useParams } from 'react-router-dom';
+import ProjectAdmin from '../pages/ProjectAdmin';
 const ItemLayout = () => {
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const navigate = useNavigate();
+  const {projectid, pageid}= useParams();
   const handleIconClick = (icon) => {
     setSelectedIcon(icon === selectedIcon ? null : icon); // Toggle sidebar visibility
+    if (icon=="home"&& pageid!=="0") {
+      navigate(`/projects/${projectid}/edit/0`);
+    }else if(pageid ==="0" && icon=="tools"){
+      navigate(`/projects/${projectid}/edit/1`);
+    }
   };
 
   const handleSearchChange = (e) => {
@@ -42,7 +51,7 @@ const ItemLayout = () => {
             </li>
           </ul>
         </div>
-        {selectedIcon && (
+        {selectedIcon &&selectedIcon!=="home" && (
           <div className={`second-sidebar ${selectedIcon ? 'open' : ''}`}>
             <h2>{selectedIcon.charAt(0).toUpperCase() + selectedIcon.slice(1)}</h2>
             {selectedIcon === 'tools' && (
@@ -55,6 +64,8 @@ const ItemLayout = () => {
                   className="search-bar"
                 />
                 <GaugeItem id="1" text="Gauge" />
+                <TextItem id="1" text="Text" />
+                <NavigateItem id="1" text="Navigate Item" />
               </div>
             )}
             {selectedIcon !== 'tools' && (
@@ -62,7 +73,7 @@ const ItemLayout = () => {
             )}
           </div>
         )}
-        <DroppableArea />
+        {pageid === '0'?<ProjectAdmin />:<DroppableArea />}
       </div>
     </BackendProvider>
     </DndProvider>
